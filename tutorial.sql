@@ -111,3 +111,95 @@ mysql> select * from users;
 +------+-------+
 2 rows in set (0.00 sec)
 
+
+mysql> desc users;
++-------+---------+------+-----+---------+-------+
+| Field | Type    | Null | Key | Default | Extra |
++-------+---------+------+-----+---------+-------+
+| id    | int(11) | YES  |     | NULL    |       |
+| name  | text    | YES  |     | NULL    |       |
++-------+---------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into users(id,name) values(3,null);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from users;
++------+-------+
+| id   | name  |
++------+-------+
+|    1 | Atif  |
+|    2 | Vicky |
+|    3 | NULL  |
++------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into users(id,name) values(null,null);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> select * from users;
++------+-------+
+| id   | name  |
++------+-------+
+|    1 | Atif  |
+|    2 | Vicky |
+|    3 | NULL  |
+| NULL | NULL  |
++------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into users(id) values(3);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from users;
++------+-------+
+| id   | name  |
++------+-------+
+|    1 | Atif  |
+|    2 | Vicky |
+|    3 | NULL  |
+| NULL | NULL  |
+|    3 | NULL  |
++------+-------+
+5 rows in set (0.04 sec)
+
+mysql> drop users;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'users' at line 1
+mysql> drop table users;
+Query OK, 0 rows affected (0.30 sec)
+
+mysql> desc tables;
+ERROR 1146 (42S02): Table 'tutorial2.tables' doesn't exist
+mysql> show tables;
+Empty set (0.00 sec)
+
+mysql> create table users (id int not null, username text not null);
+Query OK, 0 rows affected (0.52 sec)
+
+mysql> desc users;
++----------+---------+------+-----+---------+-------+
+| Field    | Type    | Null | Key | Default | Extra |
++----------+---------+------+-----+---------+-------+
+| id       | int(11) | NO   |     | NULL    |       |
+| username | text    | NO   |     | NULL    |       |
++----------+---------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into users(id) values(3);
+ERROR 1364 (HY000): Field 'username' doesn't have a default value
+mysql> insert into users(id,name) values(null,null);
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+mysql> insert into users(id,username) values(null,null);
+ERROR 1048 (23000): Column 'id' cannot be null
+mysql> insert into users(id) values(9);
+ERROR 1364 (HY000): Field "username' doesn't have a default value"
+mysql> select * from users;
+Empty set (0.00 sec)
+
+mysql> insert into users(username) values("new");
+ERROR 1364 (HY000): Field 'id' doesn't have a default value
+mysql> select * from users;
+Empty set (0.00 sec)
+
+mysql>  
+
