@@ -393,4 +393,247 @@ ERROR 1048 (23000): Column 'id' cannot be null
 mysql> 
 
 
+mysql> ####
+mysql> ####
+mysql> ###
+mysql> ### Auto incrementing primary keys ####
+mysql> drop users;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'users' at line 1
+mysql> create table users (id int primary key auto_increment,name text);
+ERROR 1050 (42S01): Table 'users' already exists
+mysql> show tables;
++---------------------+
+| Tables_in_tutorial2 |
++---------------------+
+| test                |
+| users               |
++---------------------+
+2 rows in set (0.01 sec)
+
+mysql> drop table users;
+Query OK, 0 rows affected (0.30 sec)
+
+mysql> create table users (id int primary key auto_increment,name text);
+Query OK, 0 rows affected (0.48 sec)
+
+mysql> desc users;
++-------+---------+------+-----+---------+----------------+
+| Field | Type    | Null | Key | Default | Extra          |
++-------+---------+------+-----+---------+----------------+
+| id    | int(11) | NO   | PRI | NULL    | auto_increment |
+| name  | text    | YES  |     | NULL    |                |
++-------+---------+------+-----+---------+----------------+
+2 rows in set (0.06 sec)
+
+mysql> insert into users(id,name) values('Atif');
+ERROR 1136 (21S01): Column count doesn''t match value count at row 1
+mysql> insert into users(name) values('Atif');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from users;
++----+------+
+| id | name |
++----+------+
+|  1 | Atif |
++----+------+
+1 row in set (0.00 sec)
+
+mysql> insert into users(name) values('Asif');
+Query OK, 1 row affected (0.16 sec)
+
+mysql> select * from users;
++----+------+
+| id | name |
++----+------+
+|  1 | Atif |
+|  2 | Asif |
++----+------+
+2 rows in set (0.00 sec)
+
+mysql> insert into users(id,name) values(4,'KAsif');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from users;
++----+-------+
+| id | name  |
++----+-------+
+|  1 | Atif  |
+|  2 | Asif  |
+|  4 | KAsif |
++----+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into users(name) values('Sania');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from users;
++----+-------+
+| id | name  |
++----+-------+
+|  1 | Atif  |
+|  2 | Asif  |
+|  4 | KAsif |
+|  5 | Sania |
++----+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into users(id,name) values(0,'User8');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select * from users;
++----+-------+
+| id | name  |
++----+-------+
+|  1 | Atif  |
+|  2 | Asif  |
+|  4 | KAsif |
+|  5 | Sania |
+|  6 | User8 |
++----+-------+
+5 rows in set (0.00 sec)
+
+mysql> ## it does not take 0 and increments the used id and add that to the increment id ; 
+mysql> ##### Narowing down select statements
+mysql> 
+mysql> select * from users;
++----+-------+
+| id | name  |
++----+-------+
+|  1 | Atif  |
+|  2 | Asif  |
+|  4 | KAsif |
+|  5 | Sania |
+|  6 | User8 |
++----+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from users where id =1;
++----+------+
+| id | name |
++----+------+
+|  1 | Atif |
++----+------+
+1 row in set (0.03 sec)
+
+mysql> select * from users where name='Sania';
++----+-------+
+| id | name  |
++----+-------+
+|  5 | Sania |
++----+-------+
+1 row in set (0.01 sec)
+
+mysql> select id from users where name='Sania';
++----+
+| id |
++----+
+|  5 |
++----+
+1 row in set (0.00 sec)
+
+mysql> select name,id from users where name='Sania';
++-------+----+
+| name  | id |
++-------+----+
+| Sania |  5 |
++-------+----+
+1 row in set (0.00 sec)
+
+mysql> select id,name from users where name='Sania';
++----+-------+
+| id | name  |
++----+-------+
+|  5 | Sania |
++----+-------+
+1 row in set (0.00 sec)
+
+mysql> ### narrowing del ###
+mysql> select * from users;
++----+-------+
+| id | name  |
++----+-------+
+|  1 | Atif  |
+|  2 | Asif  |
+|  4 | KAsif |
+|  5 | Sania |
+|  6 | User8 |
++----+-------+
+5 rows in set (0.00 sec)
+
+mysql> delete from users where id =6;
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from users;
++----+-------+
+| id | name  |
++----+-------+
+|  1 | Atif  |
+|  2 | Asif  |
+|  4 | KAsif |
+|  5 | Sania |
++----+-------+
+4 rows in set (0.00 sec)
+
+mysql> delete from users where name='KAsif';
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from users;
++----+-------+
+| id | name  |
++----+-------+
+|  1 | Atif  |
+|  2 | Asif  |
+|  5 | Sania |
++----+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into users(name) values('vicky');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into users(name) values('vicky');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into users(name) values('vicky');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> delete from users where name='vicky';
+Query OK, 3 rows affected (0.11 sec)
+
+mysql> insert into users(name) values('vicky');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into users(name) values('vicky');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into users(name) values('vicky');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from users;
++----+-------+
+| id | name  |
++----+-------+
+|  1 | Atif  |
+|  2 | Asif  |
+|  5 | Sania |
+| 10 | vicky |
+| 11 | vicky |
+| 12 | vicky |
++----+-------+
+6 rows in set (0.00 sec)
+
+mysql> delete from users where name='vicky';
+Query OK, 3 rows affected (0.08 sec)
+
+mysql> select * from users;
++----+-------+
+| id | name  |
++----+-------+
+|  1 | Atif  |
+|  2 | Asif  |
+|  5 | Sania |
++----+-------+
+3 rows in set (0.00 sec)
+
+mysql>  
+
 
