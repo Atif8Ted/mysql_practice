@@ -1,0 +1,100 @@
+package wednesday;
+
+public class Test1 {
+
+	public int i1=10;
+	protected int i2=20;
+	int i3=30;
+	private int i4=40;
+	public void f1()
+	{
+		System.out.println("I am in f1"+i4);
+	}
+	protected void f2()
+	{
+		System.out.println("I am in f2");
+	}
+	void f3()
+	{
+		System.out.println("I am in f3");
+	}
+	private void f4()
+	{
+		System.out.println("I am in f4");
+	}
+	public void f5() //to access private function use public method
+	{
+		f4();
+	}
+	public Test1()
+	{
+		System.out.println("I am in constructor.");
+	}
+}
+
+//main class in same package
+package wednesday;//same package
+
+public class Testdemo {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Test1 ob=new Test1(); 
+		System.out.println(ob.i1);
+		System.out.println(ob.i2);
+		System.out.println(ob.i3);
+		System.out.println(ob.i4);//error ,accessing private variable in another class
+		ob.f1();
+		ob.f2();
+		ob.f3();
+		ob.f4();//error ,accessing private method in another class
+		ob.f5();
+	}
+
+}
+
+//main class in different package
+package tuesday; //different package
+
+import wednesday.Test1;
+
+public class Testdemo extends Test1{
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Test1 ob=new Test1(); 
+		//function calls the variable by object reference 
+		System.out.println(ob.i1);//public variable
+		System.out.println(ob.i2);//protected variable
+		System.out.println(ob.i3);//default variable
+		System.out.println(ob.i4);//private variable
+		ob.f1();
+		ob.f2();
+		ob.f3();
+		ob.f4();
+		ob.f5();
+		
+		//accessing non static member inside static class will be error,so make it has static variable in its corresponding class
+		//function calls the variable directly after inheritance
+		
+				System.out.println(i1);//public variable
+				System.out.println(i2);//protected variable
+				System.out.println(i3);//default variable
+				System.out.println(i4);//private variable
+				f1();
+				f2();
+				f3();
+		
+	}
+	void tf2()
+	{
+		//function calls the variable directly after inheritance
+		System.out.println(i1);//public variable
+		System.out.println(i2);//protected variable
+		System.out.println(i3);//error ,accessing default variable in another class and different package
+		System.out.println(i4);// error, accessing private variable in another class and different package
+		f1();
+		f2();
+		f3();//error ,accessing default method in another class and different package
+	}
+
+}

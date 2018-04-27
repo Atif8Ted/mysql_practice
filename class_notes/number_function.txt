@@ -1,0 +1,30 @@
+Number function
+
+1.truncate()
+
+select truncate(456.6,0) T1 ,truncate(465.2222,2) T2,truncate(465.2222,-1) T3,
+truncate(465.2222,-2) T4,truncate(565.2222,-3) T5;
+
+2.round()
+
+select round(456.6,0) T1 ,round(465.2222,2) T2,round(465.2222,-1) T3,
+round(465.2222,-2) T4,round(565.2222,-3) T5;
+
+3.ceil()
+
+select ceil(456.6) T1 ,ceil(465.2222) T2,ceil(465.2222) T3,
+ceil(465.2222) T4,ceil(565.2222) T5;
+
+4.floor()
+
+select floor(456.6) T1 ,floor(465.2222) T2,floor(465.2222) T3,
+floor(465.2222) T4,floor(565.2222) T5;
+
+5.mod() 
+
+select mod(5,2) T1;
+
+6.sin()
+
+select ceil(sin(90*3.14/180));
+

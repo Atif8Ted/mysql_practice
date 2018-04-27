@@ -1,0 +1,105 @@
+SQL OPERATORS
+
+in
+between
+not in
+not between
+is null
+is not null
+
+1.write a query to display student fname and id who does not have last name
+
+select  ID,f_name from student where l_name is null;
+
+select  ID,f_name from student where l_name is not null;
+
+2.write a query to display fname and lname whose name start with A-M
+
+select ID,f_name,l_name from student where f_name  between 'A' and 'M';
+
+3.Give the list of id and name who has born between jan and march.
+
+select ID,f_name,l_name from student where month(dob) between 01 and 03;
+
+4.write a query to display ID, name and fname delimit - lname and alias shoul be name.
+
+select ID,concat(f_name,'-',ifnull(l_name,' ')) NAME from student;
+
+5.write a query to concat with(Mr/Miss) before name and display it
+
+select ID,case when gender ='M' then concat('Mr.',f_name,'-',ifnull(l_name,' '))
+else concat('Miss.',f_name,'-',ifnull(l_name,' ')) end NAME from student;
+
+6.write a query to display id,total marks and result of test 1 .
+
+select ID, (M1+M2+M3+M4+M5) TOTAL ,
+case when M1<18 or M2<18 or M3<18 or M4<18 or M5<18 then 'Fail'
+when (M1+M2+M3+M4+M5)/5 between 18 and 25 then 'Pass'
+when (M1+M2+M3+M4+M5)/5 between 26 and 35 then 'II class Pass'
+when (M1+M2+M3+M4+M5)/5 between 36 and 42 then 'I class pass'
+else
+'Distinction pass' end RESULT from marks where testno= 1;
+
+
+select s.ID, s.f_name,(m.M1+m.M2+m.M3+m.M4+m.M5) TOTAL ,
+case when m.M1<18 or m.M2<18 or m.M3<18 or m.M4<18 or m.M5<18 then 'Fail'
+when (m.M1+m.M2+m.M3+m.M4+m.M5)/5 between 18 and 25 then 'Pass'
+when (m.M1+m.M2+m.M3+m.M4+m.M5)/5 between 26 and 35 then 'II class Pass'
+when (m.M1+m.M2+m.M3+m.M4+m.M5)/5 between 36 and 42 then 'I class pass'
+else
+'Distinction pass' end RESULT from marks m, student s where m.ID=s.ID and m.testno= 1 ;
+
+
+select s.ID, s.f_name,c.cname,(m.M1+m.M2+m.M3+m.M4+m.M5) TOTAL ,
+case when m.M1<18 or m.M2<18 or m.M3<18 or m.M4<18 or m.M5<18 then 'Fail'
+when (m.M1+m.M2+m.M3+m.M4+m.M5)/5 between 18 and 25 then 'Pass'
+when (m.M1+m.M2+m.M3+m.M4+m.M5)/5 between 26 and 35 then 'II class Pass'
+when (m.M1+m.M2+m.M3+m.M4+m.M5)/5 between 36 and 42 then 'I class pass'
+else
+'Distinction pass' end RESULT from marks m, student s,city c ,connect1 c1 
+where m.ID=s.ID and m.ID=c1.ID and c1.cid=c.cid and m.testno= 1 ;
+
+write query to display student id, name and subject name and marks scored in it each.
+
+select a.ID,a.f_name,c.subname,f.M1,c1.subname,f.M2,c2.subname,f.M3,f.M4 SCIENCE, f.M5 SOCIAL 
+from student a,connect1 t, marks f,subject c,subject c1,subject c2
+where a.ID=t.ID and a.ID = f.ID and t.L1=c.subid and t.L2=c1.subid and t.l3=c2.subid and f.testno=1;
+ 
+WRITE A QUERY TO DISPLAY ID,NAME AND MARKS1
+
+select id,f_name,m1 from student natural join marks;
+
+select a.id,a.f_name,b.m1 from student a inner join marks b on (a.id=b.id and b.testno=1);
+
+
+
+select a.id,a.f_name,b.m1 from student a left outer join marks b on (a.id=b.id);
+
+write a query student id,name,city name using inner join
+
+select a.id,a.f_name,b.cname,d.dname,s.sname from student a inner join connect1 c on (a.id=c.id) 
+inner join city b on(b.cid=c.cid) inner join district d on (d.did=b.did) 
+inner join state s on(s.sid=d.sid);
+
+select a.id, a.f_name, case when b.M1 is null or b.M2 is null then
+'Absent' 
+else
+(b.M1+b.M2+b.M3+b.M4+b.M5) end Total from student a left outer join marks b on (a.id=b.id and b.testno=1);
+
+
+select a.id, a.f_name,
+ifnull((b.M1+b.M2+b.M3+b.M4+b.M5),'absent') Total from student a left outer join marks b on (a.id=b.id and b.testno=1);
+
+select a.id,b.cname from connect1 a inner join city b on(a.cid=b.cid);
+
+select x1.id , x1.f_name , y1.cname from student x1 inner join 
+(select a.id,b.cname from connect1 a inner join city b on(a.cid=b.cid))y1 on (x1.id=y1.id)
+    
+select id from marks where testno=1
+select id,f_name from student where id not in (select id from marks where testno=1);
+
+
+
+
+
+

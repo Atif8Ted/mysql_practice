@@ -1,0 +1,32 @@
+package tuesday;
+
+public enum Weekday1 {
+	
+	sunday("sun","red"),monday("moon","white"),tuesday("mars","red orange"),wednesday("mercury","green"),thursday("jupiter","yellow"),friday("venus","white"),saturday("saturn","black");
+	String owner,colour;
+	Weekday1(String s1,String s2)
+	{
+		owner=s1;
+		colour=s2;
+		
+	}
+
+}
+//main class
+package tuesday;
+
+public class Weekday {
+	
+	public static void main(String[] args) {
+		Weekday1 ob;
+		ob=Weekday1.valueOf("sunday");
+		System.out.println(ob);
+		System.out.println(ob.owner);
+		System.out.println(ob.colour);
+		ob=Weekday1.valueOf("friday");
+		System.out.println(ob);
+		System.out.println(ob.owner);
+		System.out.println(ob.colour);
+	}
+
+}

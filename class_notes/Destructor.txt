@@ -1,0 +1,37 @@
+package wednesday;
+
+public class Desdemo {
+//constructor
+	public Desdemo()
+	{
+		System.out.println("I am in constructor.");
+	}
+	// function
+	public void f1()
+	{
+		System.out.println("I am in function.");
+	}
+	//destructor
+	public void finalize()
+	{
+		System.out.println("I am in Destructor.");
+	}
+}
+//main class
+package wednesday;
+
+public class Demo1 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Desdemo dd=new Desdemo(); // object creation
+		dd.f1(); 
+		
+		Desdemo dd1=dd; //one more reference to object dd , no new object is created
+		dd=null;
+		//dd1=null;
+		new Desdemo().f1(); //object created but no placeholder to the reference , so it automatically dereferenced
+		System.gc(); //Explicitly calling of garbage collector
+	}
+
+}

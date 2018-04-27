@@ -1,0 +1,26 @@
+query = selection(sigma symbol) + projection(pi symbol)
+
+
+select  all /distinct * from table_name;
+
+
+select  all /distinct column_name  Alias from table_name Alias where/subqueries/groupby/having/orderby;
+
+
+1. write a query to display f_name,l-name and ID and f_name should be in albhabetical order.
+
+select f_name,l_name,ID from student order by f_name asc; //ascending order
+
+select f_name,l_name,ID from student order by f_name desc; //descending order
+
+2.to display who has born in april
+
+select f_name,l_name,ID from student where month(dob) = 04; // april
+
+select f_name,l_name,ID,dob from student where month(dob) in( 04, 05); //april and may
+
+3.to display fname start with K
+
+select * from student where f_name like 'K%';
+
+select distinct y.sname ,o.cname from city o, district x ,state y where o.did=x.did and x.sid=y.sid;

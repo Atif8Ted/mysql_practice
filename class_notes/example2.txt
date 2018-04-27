@@ -1,0 +1,79 @@
+package thursday;
+
+public class Studentbean1 {
+
+	private String name;
+	private int age;
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	
+	private class Marks
+	{
+		
+		private int english;
+
+		public int getEnglish() {
+			return english;
+		}
+
+		public void setEnglish(int english) {
+			this.english = english;
+		}
+		
+	}
+	
+	Marks mb=new Marks();
+	public void setmarks(int n)
+	{
+		mb.setEnglish(n);
+		System.out.println("dfgkj");
+	}
+	public int getmarks()
+	{
+		return mb.getEnglish();
+	}
+}
+package thursday;
+
+public class Studentbo {
+
+	public void displayrank(Studentbean1 ob)
+	{
+		if(ob.getmarks()<35)
+		{
+			System.out.println(ob.getName()+" Fail");
+		}
+		else
+		{
+			System.out.println(ob.getName()+" Pass");
+		}
+	}
+}
+//main class
+package thursday;
+
+public class Demo3 {
+
+	public static void main(String[] args) {
+				// TODO Auto-generated method stub
+		Studentbean1 ob =new Studentbean1();
+		Studentbo ob1=new Studentbo();
+		ob.setName("don");
+		ob.setAge(23);
+		ob.setmarks(56);
+		ob1.displayrank(ob);
+		
+
+	}
+
+}

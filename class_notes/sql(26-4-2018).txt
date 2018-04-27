@@ -1,0 +1,75 @@
+DDL - Data Definition Language
+(create, alter, drop, truncate)
+
+
+create database student;
+use student;
+create table movie (
+		sid int unique not null,
+		sname varchar(20) not null);
+
+alter table movie drop column sname;
+		--> backdrop: Foreign key wont allow to change/drop
+		--> there will be a warning before droping existing data
+alter table movie add sname varchar(20) not null;
+//alter table movie modify sname varchar(40) not null;
+alter table movie change sname s_name varchar(40) not null;
+alter table movie rename to movie1;
+
+(works only in Oracle)
+create table movietmp (
+		sid int constraint a1 unique not null,
+		sname varchar(20) not null);
+	--> Constraint name cannot be used in another table
+alter table movietmp disable constraint a1;
+alter table movietmp enable constraint a1;
+alter table movietmp drop constraint a1;
+alter table movietmp add constraint a2 unique (sname);
+drop table movietmp;
+
+TCL - Transaction Control Language
+--> (commit, savepoint, rollback)
+
+create table marks1 as select * from marks;  // creating data with the table
+insert into marks1 select * from marks;      // creating data in an existing table
+rollback;
+set autocommit = false;
+delete from marks1;
+truncate marks1;   
+
+DML (Data Manipulation Language)
+--> (insert, update, delete, merge)
+
+select * from marks1 as of timestamp('2018-04-25 10:20:00');         // Flashback query
+update student set f_name = ucase(f_name) , l_name = ucase(l_name);  // data is changed to the existing table
+update student set f_name = lcase(f_name) , l_name = lcase(l_name) where id=4001;
+create table m1(id int references student(id) on delete cascade); // cascade deletes on both tables
+insert into student(id,f_name) values(50001,'xxx');
+insert into m1 values(50001);
+delete from student where id=50001;
+
+
+create table m1(id int references student(id) on delete cascade);  
+
+--> matched and update syntax example:
+
+msales tsales
+merge into msales a using tsales b
+on (a.id=b.id) 
+when matched then 
+update set a.f_name=b.f_name
+when not matched then
+insert (a.id,a.f_name) values (b.id,b.f_name);
+ 
+DCL - Data Control Language
+(grant, revoke, deny)
+
+create user batch identified by psw;
+drop user batch;
+grant createsession to batch;        //tablespace is not yet granted
+grant unlimited tablespace to batch; // all permissions are granted 
+grant create any table to batch;     // any table name has the permission to be created
+revoke create any table from batch;
+
+
+

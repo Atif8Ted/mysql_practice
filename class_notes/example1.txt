@@ -1,0 +1,58 @@
+package thursday;
+
+public class Studentbean {
+	
+	private String name;
+	private int age,marks;
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public int getMarks() {
+		return marks;
+	}
+	public void setMarks(int marks) {
+		this.marks = marks;
+	}
+	
+}
+package thursday;
+
+public class Studentbo {
+
+	public void displayrank(Studentbean ob)
+	{
+		if(ob.getmarks()<35)
+		{
+			System.out.println(ob.getName()+" Fail");
+		}
+		else
+		{
+			System.out.println(ob.getName()+" Pass");
+		}
+	}
+}
+//main class
+package thursday;
+
+public class Demo2 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Studentbean ob=new Studentbean();
+		Studentbo ob1=new Studentbo();
+		ob.setName("arun");
+		ob.setAge(23);
+		ob.setMarks(84);
+		ob1.displayrank(ob);
+	}
+
+}

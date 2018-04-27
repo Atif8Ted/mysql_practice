@@ -1,0 +1,21 @@
+1.write a query to give list of ID who lives in tamilnadu 
+
+select s.ID,s.f_name from student s where s.ID in (select ID from connect1 where cid in 
+(select cid from city where did in(select did from district where sid in
+(select sid from state where sname = 'tamilnadu')) ));
+
+select s.ID,s.f_name from student s where s.ID not in (select ID from connect1 where cid in 
+(select cid from city where did in(select did from district where sid in
+(select sid from state where sname = 'tamilnadu')) ));
+
+2.Give a list whose first language is english.
+
+select ID, f_name from student where ID in (select ID from connect1 where l2 in 
+(select subid from subject where subname='english'));
+
+3.Give a list whose first language is maths and second language is english.
+
+select ID, f_name from student where ID in (select ID from connect1 where l2 in 
+(select subid from subject where subname='english')) and ID in
+(select ID from connect1 where l3 in 
+(select subid from subject where subname='maths'));

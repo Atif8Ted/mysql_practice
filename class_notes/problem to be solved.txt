@@ -1,0 +1,4 @@
+1. Accept two number perform addition subtraction and multiplication division an the numbers
+ without control structures.
+2. Creat a class to accept student id and name, if the id is created then allow him/her to
+ enter the marks.

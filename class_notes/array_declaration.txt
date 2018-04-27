@@ -1,0 +1,48 @@
+types of array
+1 dimensional array
+2 dimensional array -fixed column in all rows
+jagged array variable column in all rows
+
+different ways to declare an array
+
+int []a=new int[];//error size must be specified
+
+int []a=new int[5];
+
+int [5]a=new int[];//error size declaration should be in RHS
+
+int a1[]={10,20,30};
+
+int a1[]=new int[]{10,20,30};
+
+int a2[];	//error declaration is fragemented
+a2={10,20,30};
+
+int a3[];
+a3=new int[]{10,20,30}; 
+
+
+int [][]b=new int[3][3];
+
+int b[][]=new int[3][3];
+
+int []b[]=new int[3][3];
+
+int [][]b=new int[][3];//error
+
+int [][]b=new int[3][];
+b[0]=new int [3];
+b[1]=new int [5];
+b[2]=new int [1];
+
+int [][] b={{1,2},{3,4}};
+
+int [][] b={{1,2,5},{3,4}};
+
+int [][] b=new int [][]{{1,2},{3,4}};
+
+int [][]b;
+b={{1,2,5},{3,4}}; //error declaration is fragemented
+
+int [][]b;
+b=new int [][]{{1,2},{3,4}};
