@@ -637,3 +637,564 @@ mysql> select * from users;
 mysql>  
 
 
+
+------------lecture 17----
+mysql> use tutorial1;
+Database changed
+mysql> show tables;
+Empty set (0.00 sec)
+
+mysql> create table users (id int primary key auto_increment, name text, age int);
+Query OK, 0 rows affected (0.20 sec)
+
+mysql> desc users;
++-------+---------+------+-----+---------+----------------+
+| Field | Type    | Null | Key | Default | Extra          |
++-------+---------+------+-----+---------+----------------+
+| id    | int(11) | NO   | PRI | NULL    | auto_increment |
+| name  | text    | YES  |     | NULL    |                |
+| age   | int(11) | YES  |     | NULL    |                |
++-------+---------+------+-----+---------+----------------+
+3 rows in set (0.04 sec)
+
+mysql> insert into users(name ,age) values('Bob',46);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from users;
++----+------+------+
+| id | name | age  |
++----+------+------+
+|  1 | Bob  |   46 |
++----+------+------+
+1 row in set (0.02 sec)
+
+mysql> #### comparision operators ####
+mysql> # -----------------------------#
+mysql> select count(*) from users;
++----------+
+| count(*) |
++----------+
+|        1 |
++----------+
+1 row in set (0.04 sec)
+
+mysql> insert into users(name ,age) values('Atif',22);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into users(name ,age) values('Rajesh',25);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into users(name ,age) values('Negi',21);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from users;
++----+--------+------+
+| id | name   | age  |
++----+--------+------+
+|  1 | Bob    |   46 |
+|  2 | Atif   |   22 |
+|  3 | Rajesh |   25 |
+|  4 | Negi   |   21 |
++----+--------+------+
+4 rows in set (0.00 sec)
+
+mysql> select name from users where age =22;
++------+
+| name |
++------+
+| Atif |
++------+
+1 row in set (0.03 sec)
+
+mysql> select name from users where age <30;
++--------+
+| name   |
++--------+
+| Atif   |
+| Rajesh |
+| Negi   |
++--------+
+3 rows in set (0.00 sec)
+
+mysql> select name from users where age >30;
++------+
+| name |
++------+
+| Bob  |
++------+
+1 row in set (0.00 sec)
+
+mysql> select name from users where age >=46;
++------+
+| name |
++------+
+| Bob  |
++------+
+1 row in set (0.00 sec)
+
+mysql> select name from users where age >46;
+Empty set (0.00 sec)
+
+mysql> select name from users where age !46;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '!46' at line 1
+mysql> select name from users where age !=46;
++--------+
+| name   |
++--------+
+| Atif   |
+| Rajesh |
+| Negi   |
++--------+
+3 rows in set (0.00 sec)
+
+mysql> select name from users where name ='Bob';
++------+
+| name |
++------+
+| Bob  |
++------+
+1 row in set (0.00 sec)
+
+mysql> select name from users where name !='Bob';
++--------+
+| name   |
++--------+
+| Atif   |
+| Rajesh |
+| Negi   |
++--------+
+3 rows in set (0.00 sec)
+
+mysql> select name from users where name <>'Bob';
++--------+
+| name   |
++--------+
+| Atif   |
+| Rajesh |
+| Negi   |
++--------+
+3 rows in set (0.00 sec)
+
+mysql> select name from users where age <>46;
++--------+
+| name   |
++--------+
+| Atif   |
+| Rajesh |
+| Negi   |
++--------+
+3 rows in set (0.00 sec)
+
+mysql> select name from users where name is null;
+Empty set (0.00 sec)
+
+mysql> select name from users where name is  not null;
++--------+
+| name   |
++--------+
+| Bob    |
+| Atif   |
+| Rajesh |
+| Negi   |
++--------+
+4 rows in set (0.00 sec)
+
+mysql> select name from users where name like'%esh';
++--------+
+| name   |
++--------+
+| Rajesh |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select name from users where name like'%';
++--------+
+| name   |
++--------+
+| Bob    |
+| Atif   |
+| Rajesh |
+| Negi   |
++--------+
+4 rows in set (0.00 sec)
+
+mysql> select name from users where name like'%ob';
++------+
+| name |
++------+
+| Bob  |
++------+
+1 row in set (0.00 sec)
+
+mysql> select name from users where name like'%o%';
++------+
+| name |
++------+
+| Bob  |
++------+
+1 row in set (0.00 sec)
+
+mysql> select name from users where name like'%i%';
++------+
+| name |
++------+
+| Atif |
+| Negi |
++------+
+2 rows in set (0.00 sec)
+
+mysql> select name from users where name not like'%i%';
++--------+
+| name   |
++--------+
+| Bob    |
+| Rajesh |
++--------+
+2 rows in set (0.00 sec)
+
+mysql>
+
+
+mysql> ###### 18 . Logical operators ###
+mysql> select * from users where age <30;
++----+--------+------+
+| id | name   | age  |
++----+--------+------+
+|  2 | Atif   |   22 |
+|  3 | Rajesh |   25 |
+|  4 | Negi   |   21 |
++----+--------+------+
+3 rows in set (0.00 sec)
+
+mysql> select * from users where age >30 and name='Bob';
++----+------+------+
+| id | name | age  |
++----+------+------+
+|  1 | Bob  |   46 |
++----+------+------+
+1 row in set (0.01 sec)
+
+mysql> select * from users where age <30 and age >21;
++----+--------+------+
+| id | name   | age  |
++----+--------+------+
+|  2 | Atif   |   22 |
+|  3 | Rajesh |   25 |
++----+--------+------+
+2 rows in set (0.00 sec)
+
+mysql> select * from users where age <30 and name like '%i%';
++----+------+------+
+| id | name | age  |
++----+------+------+
+|  2 | Atif |   22 |
+|  4 | Negi |   21 |
++----+------+------+
+2 rows in set (0.00 sec)
+
+mysql> select * from users where !(age <30) and name like '%i%';
+Empty set (0.01 sec)
+
+mysql> select * from users where not(age <30);
++----+------+------+
+| id | name | age  |
++----+------+------+
+|  1 | Bob  |   46 |
++----+------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from users where (age>45);
++----+------+------+
+| id | name | age  |
++----+------+------+
+|  1 | Bob  |   46 |
++----+------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from users where not (age>45);
++----+--------+------+
+| id | name   | age  |
++----+--------+------+
+|  2 | Atif   |   22 |
+|  3 | Rajesh |   25 |
+|  4 | Negi   |   21 |
++----+--------+------+
+3 rows in set (0.00 sec)
+
+mysql> ### 19. Exclusive or ###
+mysql>
+mysql> select * from users;
++----+--------+------+
+| id | name   | age  |
++----+--------+------+
+|  1 | Bob    |   46 |
+|  2 | Atif   |   22 |
+|  3 | Rajesh |   25 |
+|  4 | Negi   |   21 |
++----+--------+------+
+4 rows in set (0.00 sec)
+
+mysql> select * froom users where age <30 or name ='Bob';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'froom users where age <30 or name ='Bob'' at line 1
+mysql> select * from users where age <30 or name ='Bob';
++----+--------+------+
+| id | name   | age  |
++----+--------+------+
+|  1 | Bob    |   46 |
+|  2 | Atif   |   22 |
+|  3 | Rajesh |   25 |
+|  4 | Negi   |   21 |
++----+--------+------+
+4 rows in set (0.00 sec)
+
+mysql> select * from users where age <30 xor name ='Bob';
++----+--------+------+
+| id | name   | age  |
++----+--------+------+
+|  1 | Bob    |   46 |
+|  2 | Atif   |   22 |
+|  3 | Rajesh |   25 |
+|  4 | Negi   |   21 |
++----+--------+------+
+4 rows in set (0.01 sec)
+
+mysql> select * from users where age <30 xor name ='Atif';
++----+--------+------+
+| id | name   | age  |
++----+--------+------+
+|  3 | Rajesh |   25 |
+|  4 | Negi   |   21 |
++----+--------+------+
+2 rows in set (0.00 sec)
+
+mysql> ## Xor will print where one of the statements is correct but when a result is matching both statement as correct it will skip;
+mysql> insert into users(name,age) values ('Revan',20);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> #### Beginning update statements ###
+mysql>
+mysql> #----------------------------------#
+mysql> # CRUD (create ,retrieve, update , delete)
+mysql> update users set name ='Bob';
+Query OK, 4 rows affected (0.05 sec)
+Rows matched: 5  Changed: 4  Warnings: 0
+
+mysql> select * from users;
++----+------+------+
+| id | name | age  |
++----+------+------+
+|  1 | Bob  |   46 |
+|  2 | Bob  |   22 |
+|  3 | Bob  |   25 |
+|  4 | Bob  |   21 |
+|  5 | Bob  |   20 |
++----+------+------+
+5 rows in set (0.00 sec)
+
+mysql> insert into users(name,age) values ('Revan',20);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from users;
++----+-------+------+
+| id | name  | age  |
++----+-------+------+
+|  1 | Bob   |   46 |
+|  2 | Bob   |   22 |
+|  3 | Bob   |   25 |
+|  4 | Bob   |   21 |
+|  5 | Bob   |   20 |
+|  6 | Revan |   20 |
++----+-------+------+
+6 rows in set (0.00 sec)
+
+mysql> update users set name ='Atif' where age = 22 ;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from users;
++----+-------+------+
+| id | name  | age  |
++----+-------+------+
+|  1 | Bob   |   46 |
+|  2 | Atif  |   22 |
+|  3 | Bob   |   25 |
+|  4 | Bob   |   21 |
+|  5 | Bob   |   20 |
+|  6 | Revan |   20 |
++----+-------+------+
+6 rows in set (0.00 sec)
+
+mysql> update users set name='Rajesh' where age =25;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from users;
++----+--------+------+
+| id | name   | age  |
++----+--------+------+
+|  1 | Bob    |   46 |
+|  2 | Atif   |   22 |
+|  3 | Rajesh |   25 |
+|  4 | Bob    |   21 |
+|  5 | Bob    |   20 |
+|  6 | Revan  |   20 |
++----+--------+------+
+6 rows in set (0.00 sec)
+
+mysql> sql_safe_updates status;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sql_safe_updates status' at line 1
+mysql> sql_safe_updates
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sql_safe_updates' at line 1
+mysql>
+
+
+mysql> ### 24 . Order By #####
+mysql> #---------------------#
+mysql> select * from users ;
++----+--------+------+
+| id | name   | age  |
++----+--------+------+
+|  1 | Bob    |   46 |
+|  2 | Atif   |   22 |
+|  3 | Rajesh |   25 |
+|  4 | Bob    |   21 |
+|  5 | Bob    |   20 |
+|  6 | Revan  |   20 |
++----+--------+------+
+6 rows in set (0.00 sec)
+
+mysql> select * from users order by name;
++----+--------+------+
+| id | name   | age  |
++----+--------+------+
+|  2 | Atif   |   22 |
+|  1 | Bob    |   46 |
+|  4 | Bob    |   21 |
+|  5 | Bob    |   20 |
+|  3 | Rajesh |   25 |
+|  6 | Revan  |   20 |
++----+--------+------+
+6 rows in set (0.01 sec)
+
+mysql> select * from users where id=3 order by name;
++----+--------+------+
+| id | name   | age  |
++----+--------+------+
+|  3 | Rajesh |   25 |
++----+--------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from users where id<6 order by name;
++----+--------+------+
+| id | name   | age  |
++----+--------+------+
+|  2 | Atif   |   22 |
+|  1 | Bob    |   46 |
+|  4 | Bob    |   21 |
+|  5 | Bob    |   20 |
+|  3 | Rajesh |   25 |
++----+--------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from users where id<6 order by name asc;
++----+--------+------+
+| id | name   | age  |
++----+--------+------+
+|  2 | Atif   |   22 |
+|  1 | Bob    |   46 |
+|  4 | Bob    |   21 |
+|  5 | Bob    |   20 |
+|  3 | Rajesh |   25 |
++----+--------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from users where id<6 order by name desc;
++----+--------+------+
+| id | name   | age  |
++----+--------+------+
+|  3 | Rajesh |   25 |
+|  1 | Bob    |   46 |
+|  4 | Bob    |   21 |
+|  5 | Bob    |   20 |
+|  2 | Atif   |   22 |
++----+--------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from users where id<6 order by id desc;
++----+--------+------+
+| id | name   | age  |
++----+--------+------+
+|  5 | Bob    |   20 |
+|  4 | Bob    |   21 |
+|  3 | Rajesh |   25 |
+|  2 | Atif   |   22 |
+|  1 | Bob    |   46 |
++----+--------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from users where id<6 order by age desc;
++----+--------+------+
+| id | name   | age  |
++----+--------+------+
+|  1 | Bob    |   46 |
+|  3 | Rajesh |   25 |
+|  2 | Atif   |   22 |
+|  4 | Bob    |   21 |
+|  5 | Bob    |   20 |
++----+--------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from users where id<6 order by age asc;
++----+--------+------+
+| id | name   | age  |
++----+--------+------+
+|  5 | Bob    |   20 |
+|  4 | Bob    |   21 |
+|  2 | Atif   |   22 |
+|  3 | Rajesh |   25 |
+|  1 | Bob    |   46 |
++----+--------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from users where id<6 order by age asc name desc;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'name desc' at line 1
+mysql> select * from users where id<6 order by age asc, name desc;
++----+--------+------+
+| id | name   | age  |
++----+--------+------+
+|  5 | Bob    |   20 |
+|  4 | Bob    |   21 |
+|  2 | Atif   |   22 |
+|  3 | Rajesh |   25 |
+|  1 | Bob    |   46 |
++----+--------+------+
+5 rows in set (0.01 sec)
+
+mysql> select * from users where id<6 order by age , name desc;
++----+--------+------+
+| id | name   | age  |
++----+--------+------+
+|  5 | Bob    |   20 |
+|  4 | Bob    |   21 |
+|  2 | Atif   |   22 |
+|  3 | Rajesh |   25 |
+|  1 | Bob    |   46 |
++----+--------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from users where id<6 order by age , name ,id ;
++----+--------+------+
+| id | name   | age  |
++----+--------+------+
+|  5 | Bob    |   20 |
+|  4 | Bob    |   21 |
+|  2 | Atif   |   22 |
+|  3 | Rajesh |   25 |
+|  1 | Bob    |   46 |
++----+--------+------+
+5 rows in set (0.00 sec)
+
+mysql>
+
+
