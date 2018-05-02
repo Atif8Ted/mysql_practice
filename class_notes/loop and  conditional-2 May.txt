@@ -1,0 +1,403 @@
+1.Scope of a variable
+
+declare 
+a number(5) :=10;
+begin
+dbms_output.put_line(a);
+	declare 
+	b number(5) :=20;
+	begin
+	dbms_output.put_line(b);
+	a:=a+1;
+	end;
+dbms_output.put_line(a);
+end;
+
+//if else
+
+2.To check a number is odd or even
+
+ 
+declare
+a number(5) :=&x;
+begin 
+if mod(a,2)=0
+then
+dbms_output.put_line('Even');
+else
+dbms_output.put_line('Odd');
+end if;
+end;
+
+3.Greatest of three numbers
+
+//each 'else if' need its corresponding closing 'end if' and the end.
+declare
+a number(5) :=&x;
+b number(5) :=&Y;
+c number(5) :=&z;
+begin
+if a>b and a>c
+then
+dbms_output.put_line('big='||a);
+else if b>c
+then
+dbms_output.put_line('big='||b);
+else
+dbms_output.put_line('big='||c);
+end if;
+end if;
+end;
+
+
+or 
+
+
+declare
+a number(5) :=&x;
+b number(5) :=&Y;
+c number(5) :=&z;
+begin
+if a>b and a>c
+then
+dbms_output.put_line('big='||a);
+elsif b>c
+then
+dbms_output.put_line('big='||b);
+else
+dbms_output.put_line('big='||c);
+end if;
+end;
+
+
+4.Accept annual salary of a employee calculate the IT of the salary.
+< 3L 
+3L to 5L then 5%
+5L to 10L then 20%
+>10L 30%
+
+
+declare
+c number(10) :=&z;
+t number(10);
+v number(10);
+begin
+if c <= 300000 and c>1
+then
+dbms_output.put_line('No need to pay Tax.');
+elsif c between 300001 and 500000
+then
+t :=c-300000;
+v:=(t*5)/100;
+dbms_output.put_line('Tax is '|| v );
+elsif c between 500001 and 1000000
+then
+v:=10000;
+t:=c-500000;
+v:=v+((t*20)/100);
+dbms_output.put_line('Tax is '|| v );
+else
+v:=100000+10000;
+t:=c-1000000;
+v:=v+((t*30)/100);
+dbms_output.put_line('Tax is '|| v );
+end if;
+end;
+
+
+for loop
+
+
+5.printing series
+
+declare
+a number(5) :=20;
+begin
+for i in 1..a loop
+dbms_output.put_line(i);
+end loop;
+dbms_output.put_line(a);
+end;
+
+or 
+
+begin
+for i in 1..10 loop
+dbms_output.put_line(i);
+end loop;
+end;
+
+6.print a number in reverse order
+
+begin
+for i in reverse 1..10 loop
+dbms_output.put_line(i);
+end loop;
+end;
+
+7.multiplication table
+
+declare
+a number(5) :=&x;
+begin
+for i in 1..10 loop
+dbms_output.put_line(a ||'x'||i||'='||(a*i));
+end loop;
+end;
+
+
+begin
+<<l>>
+for a in 1..20 loop
+for i in 1..10 loop
+dbms_output.put_line(a ||'x'||i||'='||(a*i));
+exit l when a=5;
+end loop;
+end loop;
+end;
+
+//unstructured loop
+
+declare
+a number(5) :=0;
+begin
+loop 
+a := a+1;
+dbms_output.put_line(a);
+exit when a = 10;
+end loop;
+end;
+
+// while loop
+
+declare
+a number(5) :=0;
+begin
+while a<10 loop
+a := a+1;
+dbms_output.put_line(a);
+end loop;
+end;
+
+
+declare
+a number(5) :=0;
+begin
+while true loop
+a := a+1;
+dbms_output.put_line(a);
+exit when a=5;
+end loop;
+end;
+
+8.check a number is prime or not 
+
+declare
+a number(5) :=&x;
+b number(5) ;
+c number(5) :=0;
+begin
+b :=a;
+a:=sqrt(a);
+for i in 1..a loop
+if mod(b,i) = 0
+then
+c := c+1;
+end if;
+end loop;
+if c=1
+then
+dbms_output.put_line('prime');
+else
+dbms_output.put_line('not prime');
+end if;
+end;
+
+
+9.check a number is armstrong or not
+10.write a pl/sql program to read student Id details and it.
+
+
+declare 
+a student.ID%type:=&x;
+b student%rowtype;
+begin
+select * into b from student where ID =a;
+dbms_output.put_line('Name ='||b.F_NAME);
+dbms_output.put_line('Last Name ='||b.L_NAME);
+dbms_output.put_line('DOB ='||b.DOB);
+dbms_output.put_line('Gender ='||b.GENDER);
+end;
+
+10.write a pl/sql program to read student Id details and display city he /she belongs to.
+
+declare 
+a connect1.ID%type:=&x;
+b city.cname%type;
+begin
+select c.cname into b from city c, connect1 d where d.CID =c.CID and d.ID=a;
+dbms_output.put_line('Name ='||b);
+end;
+
+//exception
+
+declare
+a number(5) :=&x;
+b number(5) :=&y;
+c number(10,2);
+begin
+c:=a/b;
+dbms_output.put_line(c);
+exception
+when zero_divide then
+dbms_output.put_line('Please dont divide with zero'||sqlerrm||sqlcode);
+when others then
+dbms_output.put_line('Error in the program'||sqlerrm||sqlcode);
+end;
+
+if b=0 --> Please dont divide with zeroORA-01476: divisor is equal to zero
+
+begin
+for i in 1000..1500 loop
+dbms_output.put_line(i||'   ...   '||sqlerrm((i*(-1))));
+end loop;
+end;
+
+*********************************************
+
+declare
+manyrows EXCEPTION;
+pragma EXCEPTION_INIT(manyrows,-1422);
+a1 student%rowtype;
+begin
+select * into a1 from student where id=4001;
+dbms_output.put_line(a1.id||'  '||a1.f_name);
+EXCEPTION
+when manyrows then
+dbms_output.put_line('Please select only one row');
+when others then
+dbms_output.put_line('Error in the program'||sqlerrm||sqlcode);
+end; 
+
+declare
+inf_balance EXCEPTION;
+bal number(10) :=4000;
+withdraw number(10) :=&x;
+begin
+if bal < withdraw then 
+raise inf_balance;
+end if;
+dbms_output.put_line('Your Transaction is under process');
+EXCEPTION
+when inf_balance then
+dbms_output.put_line('Insufficient balance. Transaction Cancelled');
+when others then
+dbms_output.put_line('Error in the program'||'  '||sqlerrm||'  '||sqlcode);
+end; 
+
+
+declare
+InvalidrowID EXCEPTION;
+pragma EXCEPTION_INIT(InvalidrowID,-1403);
+a1 student%rowtype;
+begin
+select * into a1 from student where id=4051;
+dbms_output.put_line(a1.id||'  '||a1.f_name);
+EXCEPTION
+when InvalidrowID then
+dbms_output.put_line('Data doesnt exist for that row');
+when others then
+dbms_output.put_line('Error in the program'||sqlerrm||sqlcode);
+end; 
+
+******************************
+Cursors
+
+A pointer to the memory where a data is stored.
+Nature of the cursor is forward direction. Cannot (undo)comeback.
+1.Implicit cursor          2.Explicit cursor
+eg: select(dml)		   eg: commit(tcl)
+
+
+4 steps to operate a cursor
+-->Declaration of a cursor       (Using select command)
+-->Open the cursor               (Memory gets allocate to the cursor.(BOF) Points before the beginnig of the first row.)
+-->Fetch the data from the cursor(Starts from the first character in the first row of the data)
+-->Close the cursor
+
+*********************************
+found, notfound, isopen, rowcount - inbuilt attributes
+
+declare
+cursor c1 is select id,f_name from student;
+a1 c1%rowtype;
+begin
+open c1;
+loop 
+fetch c1 into a1;
+exit when c1%notfound;
+dbms_output.put_line(a1.id||'   '||a1.f_name);
+end loop;
+dbms_output.put_line('Number of rows = '||c1%rowcount);
+if c1%isopen then 
+dbms_output.put_line('open');
+end if;
+close c1;
+if not c1%isopen then 
+dbms_output.put_line('close');
+end if;
+end;
+
+1.Write a pl/sql to delete some rows and finally display the number of rows deleted
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
